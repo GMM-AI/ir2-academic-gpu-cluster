@@ -4,11 +4,7 @@ Code and data for the paper
 
 > M. Gil and E. Seo, "From Patterns to Practice: Reclaiming Idle Resources in Academic GPU Clusters," *Future Generation Computer Systems* (under revision).
 
-The repository rebuilds every computed table, figure and number in the paper from the released data:
-raw scheduler logs and minute-level container traces → processed data → analyses → figures.
-The code is the code that produced the paper's results, adapted only to run inside this repository
-(relative paths, comments, and checks against the authors' unreleased intermediate files removed).
-No computation, threshold, random seed or selection rule was changed.
+This repository contains the code to reproduce the results of the paper. The data are attached to the GitHub release [`data-v1`](https://github.com/GMM-AI/ir2-academic-gpu-cluster/releases/tag/data-v1) (see "Data").
 
 ## Requirements
 
