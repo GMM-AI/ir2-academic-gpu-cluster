@@ -103,7 +103,7 @@ There is a gap in the monitoring data from 24 December 2025 to 25 February 2026 
 | Derivation period by class (Table 7) | 10,971 = 6,724 normal + 4,247 low-utilization |
 
 **Anonymization.** E-mail addresses, session names, session IDs, project names, node host names and storage paths were replaced:
-user `u0001`…, session name `n000001`… (one label per container), session ID `s000001`…, node `node001`… (number kept), project `project1`…, image registry host removed, mount paths emptied.
+user `u0001`…, session name `n000001`… (one label per container), session ID `s000001`…, node `node001`… (number kept), project `project1`…, image registry host and one personal registry namespace in image names replaced (`ns1`), mount paths emptied.
 Container names are rebuilt from these fields, `<created yymmdd>-<terminated yymmdd>-<user>-<session name>-<session id>-<container id>`, so the preprocessing produces the same names from the raw data.
 The labels were assigned so that names sort in the same order as the original names; the adaptive experiments and the bootstraps draw containers by position, so this keeps every result identical to the paper.
 Container IDs (platform hashes) are kept because the files are joined on them. Inside the minute traces only the node name changes; every other value is unchanged.
