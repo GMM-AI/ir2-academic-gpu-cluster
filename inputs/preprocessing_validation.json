@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "files_selected": 16285,
+  "files_post": 15460,
+  "rows_post": 26542007,
+  "gpu_gt100_raw_rows": 1198,
+  "gpu_above_allocation_max_raw_rows": 1182,
+  "cpu_negative_raw_rows": 0,
+  "gpu_negative_raw_rows": 0,
+  "cpu_above_allocation_max_raw_rows": 0,
+  "source_stat_unchanged": true,
+  "usage_sha256": "515975fd947edeb88cf7d4ee95a9621c0466cac38055a22a433d927bfcb4cdbd",
+  "normalization": "CPU / allocated cores; positive integer GPU / allocated GPU count; Non-GPU is not divided",
+  "range": "CPU/Memory finite 0..100; integer GPU finite 0..100; Non-GPU GPU metric not required",
+  "missing": "empty CPU/memory/GPU value in an existing sample = 0",
+  "missing_filled_cpu_rows": 0,
+  "missing_filled_mem_rows": 0,
+  "missing_filled_gpu_rows": 218547,
+  "fractional": "kept in unchanged UsageLog; excluded only from time-series cohort",
+  "timestamp_convention": "raw UTC converted to naive KST, matching UsageLog; elapsed seconds explicitly derived in nanoseconds",
+  "gpu_memory_unit": "MB"
+}

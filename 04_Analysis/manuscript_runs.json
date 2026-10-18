@@ -1,0 +1,26 @@
+[
+  {
+    "key": "section3_01",
+    "notebook": "04_Analysis/section3/Run01_Section3.ipynb",
+    "output": "05_Results/section3/execution_runs/01_usage",
+    "status": "NOT_RUN"
+  },
+  {
+    "key": "figure7_validation",
+    "notebook": "04_Analysis/section4/Run00_Figure7.ipynb",
+    "output": "05_Results/section4/execution_runs/00_figure7",
+    "status": "NOT_RUN"
+  },
+  {
+    "key": "section4_02",
+    "notebook": "04_Analysis/section4/Run02_Utilization.ipynb",
+    "output": "05_Results/section4/execution_runs/02_utilization",
+    "status": "NOT_RUN"
+  },
+  {
+    "key": "section4_03",
+    "notebook": "04_Analysis/section4/Run03_IdleDistribution.ipynb",
+    "output": "05_Results/section4/execution_runs/03_idle",
+    "status": "NOT_RUN"
+  }
+]

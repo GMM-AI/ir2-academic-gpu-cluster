@@ -1,0 +1,100 @@
+{
+  "population_counts": {
+    "Test": 4489,
+    "Train": 10971
+  },
+  "row_groups": 15460,
+  "rows": 26542007,
+  "train_rows": 19161724,
+  "class_counts": {
+    "Test": {
+      "normal": 2974,
+      "low_util": 1515,
+      "total": 4489
+    },
+    "Train": {
+      "normal": 6724,
+      "low_util": 4247,
+      "total": 10971
+    }
+  },
+  "group_counts": {
+    "Test": {
+      "GPU-Enabled": 1769,
+      "Non-GPU": 2720
+    },
+    "Train": {
+      "GPU-Enabled": 4549,
+      "Non-GPU": 6422
+    }
+  },
+  "resources": {
+    "Test": {
+      "CPU": {
+        "baseline": 288196148.0,
+        "pre_saved": 22254402.0,
+        "post_saved": 28696204.0,
+        "total_saved": 50950606.0
+      },
+      "GPU": {
+        "baseline": 6088350.0,
+        "pre_saved": 243449.0,
+        "post_saved": 624680.0,
+        "total_saved": 868129.0
+      }
+    },
+    "Train": {
+      "CPU": {
+        "baseline": 657111277.5333333,
+        "pre_saved": 95084659.0,
+        "post_saved": 97942577.58333334,
+        "total_saved": 193027236.58333334
+      },
+      "GPU": {
+        "baseline": 11537810.216666667,
+        "pre_saved": 792834.9333333333,
+        "post_saved": 1511503.0666666667,
+        "total_saved": 2304338.0
+      }
+    }
+  },
+  "pre_positive_later_active": {
+    "Test": 281,
+    "Train": 566
+  },
+  "online_counts": {
+    "Test": {
+      "terminated": 1308,
+      "returns": 628
+    },
+    "Train": {
+      "terminated": 3438,
+      "returns": 1394
+    }
+  },
+  "pre_candidates": {
+    "Test": 281,
+    "Train": 568
+  },
+  "calibration_counts": {
+    "Non-GPU": [
+      3784,
+      2921,
+      2588
+    ],
+    "GPU-Enabled": [
+      2940,
+      2761,
+      1849
+    ]
+  },
+  "frozen_pre": {
+    "Non-GPU": 85,
+    "GPU-Enabled": 119
+  },
+  "frozen_post": {
+    "Non-GPU": 146,
+    "GPU-Enabled": 170
+  },
+  "source": "Empty metric values set to zero; applied timeouts 85/119/146/170 (GPU Pre 119 = Train P90 119.0, rounded); calibration counts from the raw-data rebuild."
+}

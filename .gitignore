@@ -1,0 +1,8 @@
+05_Results/
+03_ProcessedData/
+01_RawData/
+.cache/
+__pycache__/
+.venv/
+.DS_Store
+02_Preprocessing/_kernels/

@@ -1,0 +1,5 @@
+gpu_bin,phase,percentile,normal_containers,valid_cases,raw_min,nearest_min,frozen_applied_min,calibration_origin
+Non-GPU,Pre,90,3784,2921,85.0,85,85,"derivation period (Train), empty metric values set to zero"
+Non-GPU,Post,70,3784,2588,145.89999999999986,146,146,"derivation period (Train), empty metric values set to zero"
+GPU-Enabled,Pre,90,2940,2761,119.0,119,119,"derivation period (Train), empty metric values set to zero"
+GPU-Enabled,Post,70,2940,1849,169.5999999999999,170,170,"derivation period (Train), empty metric values set to zero"
