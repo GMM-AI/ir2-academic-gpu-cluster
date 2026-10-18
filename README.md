@@ -76,7 +76,7 @@ Figure 1 and Tables 1, 4 and 6 are descriptive (cluster architecture, hardware, 
 
 ## Data
 
-The three archives are attached to the GitHub release [`data-v1`](https://github.com/GMM-AI/ir2-academic-gpu-cluster/releases/tag/data-v1). A Zenodo archive with a DOI will follow.
+The three archives are attached to the GitHub release [`data-v1`](https://github.com/GMM-AI/ir2-academic-gpu-cluster/releases/tag/data-v1).
 
 | Archive | Contents | Size (zipped) |
 |---|---|---|
