@@ -55,20 +55,24 @@ All paths are under `05_Results/`. The figures in their final style are in `figu
 | Figure 12 | `0410_percentile_tradeoff.png` | `revision/adaptive_ir2/paper_tradeoff_figure.py` |
 | Figure 13 | `0411_timeout_trajectories.png` | `revision/adaptive_ir2/naive_window.py`, `adaptive_experiments.py` |
 
-`figure_style/harvest_plot_data.py` collects the data each notebook plots and `restyle_paper_figures.py` redraws the figures with one common style; the notebooks' own (unstyled) figures are in `section3/figures/` and `section4/figures/`.
+`figure_style/harvest_plot_data.py` collects the data each notebook plots and `restyle_paper_figures.py` redraws the figures with one common style; the notebooks' own (unstyled) figures are in `section3/figures/` and `section4/figures/`. The vertical lines in the paper's Figure 3 (February 2025 split, March 2025 crossover) are annotations added to the figure; the code produces the same series without them.
 
 | Paper | File |
 |---|---|
 | Tables 2, 3, 5 | `section3/tables/Table02_container_counts.csv`, `Table03_gpu_allocations.csv`, `Table05_termination_counts.csv` |
 | Tables 7, 8 | `section4/tables/Table07_lowutil_counts.csv`, `Table08_idle_concentration.csv` |
-| Table 9, fixed IR2 and single 150 min | `revision/06_policy_summary.csv`, rows `Test`: reclaimed = `idle_cpu_min / baseline_cpu_min` (non-GPU) or `idle_gpu_min / baseline_gpu_min` (GPU-enabled); later activity = `return_containers` |
-| Table 9, adaptive IR2 | `revision/adaptive_ir2/experiments/summary.csv`, rows `config = C_main`, `scope = all`, `period = Test`: `reclaim_pct_mean`, `later_active_mean` (mean of 20 sample selections) |
-| Table 9, rolling window | `revision/adaptive_ir2/experiments/naive_window/naive_summary.csv` |
+| Table 10 | `revision/06_policy_summary.csv`, rows `gpu_bin = All` (containers, `baseline_cpu_min`, `baseline_gpu_min`) and `gpu_bin = Non-GPU`, `GPU-Enabled` (containers) |
+| Table 11 | Products of the Table 12 rates and the shares from containers with later activity, 81.5% (GPU-time) and 40.9% (non-GPU CPU-time), in `manuscript_numbers/manuscript_numbers_check.csv` |
+| Table 12, fixed IR2 and single 150 min | `revision/06_policy_summary.csv`, rows `Test`: reclaimed = `idle_cpu_min / baseline_cpu_min` (non-GPU) or `idle_gpu_min / baseline_gpu_min` (GPU-enabled); later activity = `return_containers` |
+| Table 12, criteria with 60 min | `revision/additional_analyses/B2_predicate_vs_timeout.csv`, rows `Test`: `single60_reclaim`, `single60_later_active` |
+| Table 12, adaptive IR2 | `revision/adaptive_ir2/experiments/summary.csv`, rows `config = C_main`, `scope = all`, `period = Test`: `reclaim_pct_mean`, `later_active_mean` (mean of 20 sample selections) |
+| Table 12, rolling window | `revision/adaptive_ir2/experiments/naive_window/naive_summary.csv` |
+| Table 13 | `revision/08_observed_gap_summary.csv`, rows `Test` with `fully_observed_idle = True`: gaps, containers with gaps, median, P90, P99, maximum; gaps reaching the timeout = `at_or_above_frozen_post_timeout / gaps`; `containers_at_or_above_post_timeout` |
 | Other numbers in Sections 3–4 | the files listed in the tables below, and `manuscript_numbers/manuscript_numbers_check.csv` |
 
 `comparison/manuscript_figure_table_map.csv` lists, for every Section 3–4 figure and table, the notebook cell that produced it. `revision/_cache/` holds the outputs of the online replay and of the threshold step (`run.sh online`, `run.sh sensitivity`), which later steps read; despite the name, these are result files, not temporary files.
 
-Figure 1 and Tables 1, 4 and 6 are descriptive (cluster architecture, hardware, termination codes, thresholds) and are not computed. The termination-code grouping of Table 4 is applied in preprocessing step 1.
+Figure 1 and Tables 1, 4, 6 and 9 are descriptive (cluster architecture, hardware, termination codes, thresholds, experiment settings) and are not computed. The termination-code grouping of Table 4 is applied in preprocessing step 1.
 
 ## Data
 
@@ -127,7 +131,7 @@ Container IDs (platform hashes) are kept because the files are joined on them. I
 | Idle sample (Eq. 1) | A minute sample with CPU ≤ 10%, memory ≤ 15% (non-GPU) or 20% (GPU-enabled) and, if a GPU is allocated, GPU = 0%. Stored per sample as `is_lowutil` = `low_util` (idle) or `normal`. |
 | Low-utilization container (Table 7) | A container in which every sample is idle; all other containers are **normal**. The timeouts are derived from normal containers. |
 | Pre, post (phase) | Idle time before the first non-idle sample (setup) and after the last one. ("Hoarding time" in `Run03` means the same.) |
-| Online replay (Algorithm 1) | IR2 applied to the traces in time order, deciding only from what has been observed. **Hindsight accounting** (Eq. 2) knows the last active time in advance; it is reported for comparison. |
+| Online replay (Eq. 2, Algorithm 1) | IR2 applied to the traces in time order, deciding only from what has been observed. The **retrospective phase accounting** (Section 4.4) knows the last active time in advance; it is reported for comparison. |
 | Later activity, return | After a reclamation decision, the container was observed active again (the paper's disruption measure). |
 | Observation samples | The fraction ρ (5%) of containers that adaptive IR2 never reclaims; their complete idle times update the timeouts. |
 | Adaptive IR2 configurations | `C_*`: cold start (initial timeout `tau0` = 60 min); `W_*`: warm start from the derivation-period timeouts; `N_*`: one timeout per class without the pre/post split; `O`: best fixed timeouts in hindsight (frontier, for comparison only). `tau` is the timeout. |
@@ -186,7 +190,7 @@ In the Section 3–4 notebooks, `_MF_CELL = n` and the cell metadata `original_c
 
 | File | What it does | Paper |
 |---|---|---|
-| `revision/online_ir2/simulation.py` | Idle predicate (Eq. 1), online IR2 replay (Algorithm 1), reclaimed resource-time, later activity, idle gaps; hindsight accounting (Eq. 2) | 4.3–4.5, Table 9 |
+| `revision/online_ir2/simulation.py` | Idle predicate (Eq. 1), online IR2 replay (Eq. 2, Algorithm 1), reclaimed resource-time, later activity, idle gaps; retrospective phase accounting | 4.3–4.5, Tables 10–12 |
 | `revision/threshold_sensitivity/sensitivity.py` | Pre/post idle times of normal containers; percentile timeouts | 4.2, Fig. 12 inputs |
 | `revision/adaptive_ir2/adaptive_replay.py` | Adaptive update (Eq. 3) with observation samples; shared replay functions | 4.3 |
 | `revision/cohort_contract.py`, `revision/cache_paths.py`, `section4/common_monitored_cohort.py` | Shared checks and the monitored cohort | — |
@@ -206,15 +210,15 @@ In the Section 3–4 notebooks, `_MF_CELL = n` and the cell metadata `original_c
 
 | File | Produces | Paper |
 |---|---|---|
-| `revision/policy_comparison.py` | Single 150-min timeout selected on the derivation period; fixed IR2 vs single timeout | 4.4, Table 9 |
-| `revision/06_ConfidenceIntervalAnalysis.ipynb` | Bootstrap (5,000) of the hindsight accounting | 4.4 (19.97%, 14.26%, …) |
-| `revision/additional_analyses/audit_analyses.py` | B1: online bootstrap confidence intervals; B2: 60-min duration predicate, best single vs best pair of timeouts; B3: share of fractional-GPU GPU-time | 4.4 (30.44% [26.48–34.67], …), 4.5 (16.0%, 25.5%) |
-| `revision/adaptive_ir2/adaptive_experiments.py` | Adaptive IR2 (cold and warm start, 20 sample selections, parameter sensitivity), static grid | 4.4, Table 9, Fig. 13 |
+| `revision/policy_comparison.py` | Single 150-min timeout selected on the derivation period; fixed IR2 vs single timeout | 4.4, Tables 10, 12 |
+| `revision/06_ConfidenceIntervalAnalysis.ipynb` | Bootstrap (5,000) of the retrospective phase accounting | 4.4 (19.97%, 14.26%, …) |
+| `revision/additional_analyses/audit_analyses.py` | B1: online bootstrap confidence intervals; B2: 60-min duration predicate, best single vs best pair of timeouts; B3: share of fractional-GPU GPU-time | 4.4 (30.44% [26.48–34.67], best pair +0.11/+0.17, …), Table 12, 4.5 (16.0%, 25.5%) |
+| `revision/adaptive_ir2/adaptive_experiments.py` | Adaptive IR2 (cold and warm start, 20 sample selections, parameter sensitivity), static grid | 4.4, Table 12, Fig. 13 |
 | `revision/adaptive_ir2/subset_frontier.py` | Hindsight frontier on the same containers; concentration | 4.4 (0.23/0.47, 85.6%/94.3%) |
-| `revision/adaptive_ir2/naive_window.py` | Rolling window without observation samples | 4.4 (146 → 8 min, 764), Table 9, Fig. 13 |
+| `revision/adaptive_ir2/naive_window.py` | Rolling window without observation samples | 4.4 (146 → 8 min, 764), Table 12, Fig. 13 |
 | `revision/adaptive_ir2/paper_tradeoff_figure.py` | Percentile trade-off | Fig. 12 |
 | `revision/utilization_cutoff_uniform_pp.py` (needs `revision/10_UtilizationCutoffAndSamplingSensitivity.ipynb`) | CPU/memory cutoffs ±3 and ±5 pp; notebook 10 also checks how gaps between minute samples are treated | 4.4 |
-| `revision/grace_return_analysis.py` | Return delays, idle gaps, grace periods | 4.5 (202 min, 295/125, 973/464) |
+| `revision/grace_return_analysis.py` | Return delays, idle gaps, grace periods | 4.5 (202 min, Table 13, 973/464) |
 | `revision/04_FractionalGPUImpact.ipynb` | Scope of fractional-GPU containers | 3.2 (21.3%), 4.5 |
 | `revision/05_ReclaimedCapacityAndQueueing.ipynb` + `additional_analyses/reuse_overlap_online.py` | Waiting requests that fit reclaimed allocations | 4.5 (258, 43, 4.0%) |
 
