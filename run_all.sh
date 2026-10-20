@@ -16,9 +16,9 @@ step 01_online          ./run.sh online
 step 02_sensitivity     ./run.sh sensitivity
 step 03_static          ./run.sh static
 step 04_grace           ./run.sh grace
-# 2. Revision notebooks (fractional GPUs, queueing, hindsight bootstrap, February 2025, utilization cutoffs)
+# 2. Revision notebooks (fractional GPUs, queueing, hindsight bootstrap, March 2025 split, utilization cutoffs)
 for nb in 04_FractionalGPUImpact 05_ReclaimedCapacityAndQueueing 06_ConfidenceIntervalAnalysis \
-          09_FebruaryWorkloadMixThresholdStability 10_UtilizationCutoffAndSamplingSensitivity; do
+          09_WorkloadMixThresholdStability 10_UtilizationCutoffAndSamplingSensitivity; do
   step "05_nb_$nb"      ./run.sh run-notebook "04_Analysis/revision/$nb.ipynb" --timeout 3000
 done
 step 06_cutoff          "$PY" 04_Analysis/revision/utilization_cutoff_uniform_pp.py

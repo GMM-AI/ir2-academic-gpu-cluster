@@ -55,7 +55,7 @@ All paths are under `05_Results/`. The figures in their final style are in `figu
 | Figure 12 | `0410_percentile_tradeoff.png` | `revision/adaptive_ir2/paper_tradeoff_figure.py` |
 | Figure 13 | `0411_timeout_trajectories.png` | `revision/adaptive_ir2/naive_window.py`, `adaptive_experiments.py` |
 
-`figure_style/harvest_plot_data.py` collects the data each notebook plots and `restyle_paper_figures.py` redraws the figures with one common style; the notebooks' own (unstyled) figures are in `section3/figures/` and `section4/figures/`. The vertical lines in the paper's Figure 3 (February 2025 split, March 2025 crossover) are annotations added to the figure; the code produces the same series without them.
+`figure_style/harvest_plot_data.py` collects the data each notebook plots and `restyle_paper_figures.py` redraws the figures with one common style; the notebooks' own (unstyled) figures are in `section3/figures/` and `section4/figures/`.
 
 | Paper | File |
 |---|---|
@@ -200,7 +200,7 @@ In the Section 3–4 notebooks, `_MF_CELL = n` and the cell metadata `original_c
 | File | Produces | Paper |
 |---|---|---|
 | `section3/Run01_Section3.ipynb` | Container counts, allocations, termination types, creation times | Tables 2, 3, 5; Figs. 2–6; 3.2–3.3 |
-| `revision/09_FebruaryWorkloadMixThresholdStability.ipynb` | Monthly workload mix, February 2025 split | 3.2 (crossover, 59–72%, 79 vs 223 min) |
+| `revision/09_WorkloadMixThresholdStability.ipynb` | Monthly workload mix; derivation period split at March 2025 | 3.2 (crossover), 4.3 (92 vs 256 min, 122 vs 116 min) |
 | `section4/Run00_Figure7.ipynb` + `figure7_gpu_normalization.py` + `figure7_original_cells.py` | Utilization CDFs | Fig. 7, 43% |
 | `section4/Run02_Utilization.ipynb` + `validate_figure8.py` | Average utilization; containers with 0% GPU | Fig. 8 |
 | `section4/Run03_IdleDistribution.ipynb` | Low-utilization containers, idle ratios, pre/post idle times, concentration, timeouts | Table 7, Table 8, Figs. 9–11, 85/119/146/170 min |
